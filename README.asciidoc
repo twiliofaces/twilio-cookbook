@@ -6,8 +6,9 @@ image::twilio-cookbook.jpg[Twilio Cookbook, 175, 213, link="http://www.packtpub.
 
 We suggest to buy the book to find more detailed informations about the use of twilio api.
 In this repository you will find, divided for chapter, all recipes descripted in the book.
+In all module you can find the original code in the php folder.
 
-=== summary of code
+=== Summary of Code 
 
 * Chapter 1 (*Into the Frying Pan*)
 ** recipe1 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe1[Adding two-factor voice authentication to verify users])
