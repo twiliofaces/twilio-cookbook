@@ -1,12 +1,12 @@
 == twilio cookbook recipes using java EE
 
-This project is a porting of code (php) from http://www.packtpub.com/twilio-cookbook/book[Twilio Cookbook] written by Roger Stringer.
+This project is a translation of php code extracted the book http://www.packtpub.com/twilio-cookbook/book["Twilio Cookbook"] written by Roger Stringer.
 
 image::twilio-cookbook.jpg[Twilio Cookbook, 175, 213, link="http://www.packtpub.com/twilio-cookbook/book"]
 
-We suggest to buy the book to find more detailed informations about the use of twilio api.
+We strongly suggest to *buy the book* on http://www.packtpub.com/twilio-cookbook/book[Packt Publishing]to find detailed informations about the use of twilio api and to support the efforts of the author.
 In this repository you will find, divided for chapter, all recipes descripted in the book.
-In all module you can find the original code in the php folder.
+In all module you can find the original code of recipe in the php folder.
 
 === Summary of Code 
 
