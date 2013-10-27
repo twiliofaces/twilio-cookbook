@@ -10,38 +10,38 @@
 	</h:head>
 	<h:body>
 		<h:form>
-			<h:messages></h:messages>
+			<h:messages />
 
 
 			<h:panelGrid columns="2" style="width: 95%"
-				rendered="#{empty loginController.username and empty loginController.password}">
+				rendered="#{empty callLoginController.username and empty callLoginController.password}">
 				<h:outputLabel value="username" for="username" />
-				<h:inputText id="username" value="#{loginController.username}" />
+				<h:inputText id="username" value="#{callLoginController.username}" />
 
 				<h:outputLabel value="number" for="number" />
-				<h:inputText id="number" value="#{loginController.number}" />
+				<h:inputText id="number" value="#{callLoginController.number}" />
 
 
-				<h:commandButton action="#{loginController.generatePassword}"
+				<h:commandButton action="#{callLoginController.generatePassword}"
 					value="Send Password" />
 
-				<h:commandButton id="reset" action="#{loginController.reset}"
+				<h:commandButton id="reset" action="#{callLoginController.reset}"
 					value="Reset" immediate="true" />
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="2" style="width: 95%"
-				rendered="#{empty loginController.username and empty loginController.password}">
+				rendered="#{empty callLoginController.username and empty callLoginController.password}">
 
 				<h:outputLabel value="password received:" for="verifyPassword" />
 				<h:inputText id="verifyPassword"
-					value="#{loginController.verifyPassword}" />
+					value="#{callLoginController.verifyPassword}" />
 
 
-				<h:commandButton action="#{loginController.verifyPassword}"
+				<h:commandButton action="#{callLoginController.verifyPassword}"
 					value="Verify Password" />
 
-				<h:commandButton id="reset" action="#{loginController.restart}"
+				<h:commandButton id="reset" action="#{callLoginController.restart}"
 					value="Restart" immediate="true" />
 
 			</h:panelGrid>

@@ -19,11 +19,11 @@ import org.twiliofaces.chapter1.recipe1.service.AsyncCallService;
 
 @Named
 @SessionScoped
-public class LoginController implements Serializable {
+public class CallLoginController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	Logger logger = Logger.getLogger(LoginController.class.getName());
+	Logger logger = Logger.getLogger(CallLoginController.class.getName());
 
 	@Inject
 	NumbersController numbersController;
