@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.twiliofaces</groupId>
 			<artifactId>twiliofaces</artifactId>
-			<version>1.2.4</version>
+			<version>1.2.5-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
