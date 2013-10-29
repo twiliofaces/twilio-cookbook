@@ -3,29 +3,29 @@
 <!-- ~ Copyright 2012twiliofaces.org. ~ ~ Licensed under the Eclipse Public 
 	License version 1.0, available at ~ http://www.eclipse.org/legal/epl-v10.html -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.twiliofaces</groupId>
-    <artifactId>twilio-cookbook</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.twiliofaces</groupId>
+		<artifactId>twilio-cookbook</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
-    <groupId>org.twiliofaces.chapter1</groupId>
-    <artifactId>chapter1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>chapter 1 recipes</name>
+	<groupId>org.twiliofaces.chapter1</groupId>
+	<artifactId>chapter1</artifactId>
+	<packaging>pom</packaging>
+	<name>chapter 1 recipes</name>
 
-    <modules>
-<module>recipe1</module>
-<module>recipe2</module>
-<module>recipe3</module>
-<module>recipe4</module>
-<module>recipe5</module>
-<module>recipe6</module>
-<module>recipe7</module>
-    </modules>
+	<modules>
+		<module>recipe1</module>
+		<module>recipe2</module>
+		<module>recipe3</module>
+		<module>recipe4</module>
+		<module>recipe5</module>
+		<module>recipe6</module>
+		<module>recipe7</module>
+	</modules>
 
 </project>
