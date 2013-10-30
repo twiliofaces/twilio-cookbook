@@ -1,3 +1,5 @@
+ERRORI: non puoi chiamare senza definire una pagina twiml
+
 <?php
 	function cleanVar($key){
 		$retVal = '';

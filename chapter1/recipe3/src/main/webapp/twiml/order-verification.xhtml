@@ -4,6 +4,6 @@
 	xmlns:tf="http://twiliofaces.org/twiliofaces">
 	<f:event type="preRenderView" listener="#{orderController.evaluate}" />
 	<tf:response>
-		<tf:sms>#{orderController.reply()}</tf:sms>
+		<tf:sms>#{orderVerificationController.reply()}</tf:sms>
 	</tf:response>
 </f:view>

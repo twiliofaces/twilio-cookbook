@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright 2013 twiliofaces.org. ~ ~ Licensed under the Eclipse Public 
+	License version 1.0, available at ~ http://www.eclipse.org/legal/epl-v10.html -->
+<f:view xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tf="http://twiliofaces.org/twiliofaces">
+	<tf:response>
+		<tf:say voice="alice" language="en">A customer at the number #{request.number} is calling</tf:say>
+		<tf:dial
+			record="#{(not empty request.record or request.record eq 'true' ) ? 'true' : 'false'}">#{request.number}</tf:dial>
+	</tf:response>
+</f:view>

@@ -14,35 +14,37 @@
 
 
 			<h:panelGrid columns="2" style="width: 95%"
-				rendered="#{empty smsLoginController.username and empty smsLoginController.password}">
+				rendered="#{empty twoFactorSmsController.username and empty twoFactorSmsController.password}">
 				<h:outputLabel value="username" for="username" />
-				<h:inputText id="username" value="#{smsLoginController.username}" />
+				<h:inputText id="username"
+					value="#{twoFactorSmsController.username}" />
 
 				<h:outputLabel value="number" for="number" />
-				<h:inputText id="number" value="#{smsLoginController.number}" />
+				<h:inputText id="number" value="#{twoFactorSmsController.number}" />
 
 
-				<h:commandButton action="#{smsLoginController.generatePassword}"
+				<h:commandButton action="#{twoFactorSmsController.generatePassword}"
 					value="Send Password" />
 
-				<h:commandButton id="reset" action="#{smsLoginController.reset}"
+				<h:commandButton id="reset" action="#{twoFactorSmsController.reset}"
 					value="Reset" immediate="true" />
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="2" style="width: 95%"
-				rendered="#{empty smsLoginController.username and empty smsLoginController.password}">
+				rendered="#{empty twoFactorSmsController.username and empty twoFactorSmsController.password}">
 
 				<h:outputLabel value="password received:" for="verifyPassword" />
 				<h:inputText id="verifyPassword"
-					value="#{smsLoginController.verifyPassword}" />
+					value="#{twoFactorSmsController.verifyPassword}" />
 
 
-				<h:commandButton action="#{smsLoginController.verifyPassword}"
+				<h:commandButton action="#{twoFactorSmsController.verifyPassword}"
 					value="Verify Password" />
 
-				<h:commandButton id="reset" action="#{smsLoginController.restart}"
-					value="Restart" immediate="true" />
+				<h:commandButton id="reset"
+					action="#{twoFactorSmsController.restart}" value="Restart"
+					immediate="true" />
 
 			</h:panelGrid>
 		</h:form>

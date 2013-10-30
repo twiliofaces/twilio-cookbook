@@ -1,3 +1,6 @@
+ERRORI: FILE NON CHIUSO CORRETTAMENTE
+ERRORI: receptionist_phone_number VARIABILE NON DEFINITA
+
 <?php
 	session_start();
 	include 'Services/Twilio.php';

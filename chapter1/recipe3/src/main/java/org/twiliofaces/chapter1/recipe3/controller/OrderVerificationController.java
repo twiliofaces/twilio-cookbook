@@ -22,10 +22,10 @@ import org.twiliofaces.inject.notification.To;
 
 @Named
 @RequestScoped
-public class OrderController
+public class OrderVerificationController
 {
 
-   Logger logger = Logger.getLogger(OrderController.class.getName());
+   Logger logger = Logger.getLogger(OrderVerificationController.class.getName());
 
    private Map<Long, String> orders;
 
@@ -48,6 +48,10 @@ public class OrderController
    @Inject
    @To
    String to;
+
+   public OrderVerificationController()
+   {
+   }
 
    public String reply()
    {
