@@ -13,22 +13,27 @@ import com.twilio.sdk.TwilioRestException;
 
 @Stateless
 @LocalBean
-public class AsyncSendService {
+public class AsyncSendService
+{
 
-	static String ENDPOINT = "";
-	@Inject
-	Sender sender;
+   static String ENDPOINT = "";
+   @Inject
+   Sender sender;
 
-	Logger logger = Logger.getLogger(AsyncSendService.class.getName());
+   Logger logger = Logger.getLogger(AsyncSendService.class.getName());
 
-	@Asynchronous
-	public void sendPassword(String number, String body) {
-		try {
-			String sid = sender.to(number).body(body).send();
-			logger.info("msg id:" + sid);
-		} catch (TwilioRestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+   @Asynchronous
+   public void sendPassword(String number, String body)
+   {
+      try
+      {
+         String sid = sender.to(number).body(body).simpleSend();
+         logger.info("msg id:" + sid);
+      }
+      catch (TwilioRestException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
 }
