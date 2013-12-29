@@ -6,11 +6,35 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.twiliofaces</groupId>
+	<groupId>org.twiliofaces.recipes</groupId>
 	<artifactId>twilio-cookbook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>twilio cookbook recipes using java EE</name>
+	<name>Twilio Cookbook Recipes using java EE (twiliofaces): Parent Aggregator</name>
+	<description>Twilio Cookbook Recipes using java EE (twiliofaces): Parent Aggregator</description>
+	<url>http://www.twiliofaces.org/p/recipes</url>
+
+	<licenses>
+		<license>
+			<name>Eclipse Public License version 1.0</name>
+			<url>http://www.eclipse.org/legal/epl-v10.html</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>fiorenzino</id>
+			<name>Fiorenzo Pizza</name>
+			<email>fiorenzino@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/twiliofaces/twilio-cookbook.git</connection>
+		<developerConnection>scm:git:git@github.com:twiliofaces/twilio-cookbook.git</developerConnection>
+		<url>http://github.com/twiliofaces/twilio-cookbook</url>
+	</scm>
+
 
 	<properties>
 		<java.min.version>1.6</java.min.version>
@@ -97,49 +121,63 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<profiles>
-		<profile>
-			<id>javadocs</id>
-			<activation>
-				<property>
-					<name>javadocs</name>
-				</property>
-			</activation>
-			<!-- Activate this profile to download javadoc and sources jars. run: 
-				mvn process-resources -Ddownload Notice: This feature has been removed with 
-				plugin version 2.5, so keep this plugin configuration in a profile section. -->
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<version>2.4</version>
-						<executions>
-							<execution>
-								<id>sources</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>sources</goal>
-									<goal>resolve</goal>
-								</goals>
-								<configuration>
-									<classifier>javadoc</classifier>
-									<failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 	<modules>
 		<module>chapter1</module>
 		<!-- <module>chapter2</module> <module>chapter3</module> <module>chapter4</module> 
 			<module>chapter5</module> <module>chapter6</module> <module>chapter7</module> 
 			<module>chapter8</module> <module>chapter9</module> <module>chapter10</module> -->
+		<module>all-recipes</module>
 	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe1</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe2</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe3</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe4</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe5</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe6</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>recipe7</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
 
 	<prerequisites>
 		<maven>${maven.min.version}</maven>

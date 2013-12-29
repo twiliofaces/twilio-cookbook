@@ -1,3 +1,9 @@
+/*
+ * Copyright 2013 twiliofaces.org.
+ *
+ * Licensed under the Eclipse Public License version 1.0, available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.twiliofaces.chapter1.recipe1.service;
 
 import java.util.logging.Logger;
@@ -13,22 +19,28 @@ import com.twilio.sdk.TwilioRestException;
 
 @Stateless
 @LocalBean
-public class AsyncCallService {
+public class AsyncCallService
+{
 
-	static String ENDPOINT = "";
-	@Inject
-	Caller caller;
-	
-	Logger logger = Logger.getLogger(AsyncCallService.class.getName());
+   static final String URL = "";
 
-	@Asynchronous
-	public void sendPassword(String number) {
-		try {
-			String sid = caller.to(number).endpoint(ENDPOINT).call();
-			logger.info("call sid:" + sid);
-		} catch (TwilioRestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+   @Inject
+   Caller caller;
+
+   Logger logger = Logger.getLogger(AsyncCallService.class.getName());
+
+   @Asynchronous
+   public void sendPassword(String number)
+   {
+      try
+      {
+         String sid = caller.to(number).url(URL).call();
+         logger.info("call sid:" + sid);
+      }
+      catch (TwilioRestException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
 }

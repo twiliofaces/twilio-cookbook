@@ -1,3 +1,9 @@
+/*
+ * Copyright 2013 twiliofaces.org.
+ *
+ * Licensed under the Eclipse Public License version 1.0, available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.twiliofaces.chapter1.recipe5.controller;
 
 import java.io.Serializable;
@@ -21,7 +27,7 @@ public class MakeCallController implements Serializable
    private String toNumber = "12345678"; // YOUR PHONE NUMBER TO CALL
    private String toEmail = "mail@mail.com"; // YOUR EMAIL TO EMAIL YOU THE RECORDING
    private String called;
-   static String ENDPOINT = "/callback.twiml";
+   static String URL = "/callback.twiml";
    static String RECORDING_URL = "recording.jsf";
    Logger logger = Logger.getLogger(MakeCallController.class.getName());
 
@@ -41,7 +47,7 @@ public class MakeCallController implements Serializable
       {
          try
          {
-            String sid = caller.to(called).endpoint(ENDPOINT + "?+number=" + called
+            String sid = caller.to(called).url(URL + "?+number=" + called
                      // + "&record=true"
                      ).param("record", "true").call();
             logger.info("call sid:" + sid);

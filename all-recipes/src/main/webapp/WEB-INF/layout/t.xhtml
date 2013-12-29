@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<f:view contentType="text/html" encoding="UTF-8"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:gb="http://giavacms.org/base">
+
+	<h:outputText escape="false"
+		value="&lt;!--[if lt IE 7 ]&gt; &lt;html class='ie ie6' lang='it'&gt; &lt;![endif]--&gt;" />
+	<h:outputText escape="false"
+		value="&lt;!--[if IE 7 ]&gt; &lt;html class='ie ie7' lang='it'&gt; &lt;![endif]--&gt;" />
+	<h:outputText escape="false"
+		value="&lt;!--[if IE 8 ]&gt; &lt;html class='ie ie8' lang='it'&gt; &lt;![endif]--&gt;" />
+
+	<h:outputText escape="false"
+		value="&lt;!--[if (gte IE 9)|!(IE)]&gt;&lt;!--&gt;" />
+	<html lang="it">
+<h:outputText escape="false" value="&lt;!--&lt;![endif]--&gt;" />
+
+<ui:insert name="roles">
+	<f:attribute name="roles" value="ANY" />
+</ui:insert>
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:define name="title">
+			<h:outputText value="Twilio Cookbook - Demo" />
+		</ui:define></title>
+
+
+	<ui:insert name="bundle">
+	</ui:insert>
+</h:head>
+<h:body>
+
+	<ui:insert name="menu-alto">
+		<ui:include src="menu-alto.xhtml" />
+	</ui:insert>
+
+	<ui:insert name="content">
+		<ui:include src="content.xhtml" />
+	</ui:insert>
+
+
+	<center>
+		<h:outputText value="Utente: " />
+		<h:outputText value="#{loginController.userAuth.username}"
+			style="font-weight: bolder;" />
+		<h:outputText value=" -  Ruolo: " />
+		<h:outputText value="amministratore"
+			rendered="#{loginController.admin}" style="font-weight: bolder;" />
+		<h:outputText value="utente ordinario"
+			rendered="#{loginController.user}" style="font-weight: bolder;" />
+	</center>
+	<div id="footPage"></div>
+</h:body>
+
+	</html>
+
+</f:view>

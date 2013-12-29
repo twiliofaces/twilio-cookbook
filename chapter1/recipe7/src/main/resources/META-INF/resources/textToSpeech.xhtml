@@ -1,0 +1,48 @@
+<!-- ~ Copyright 2013 twiliofaces.org. ~ ~ Licensed under the Eclipse Public 
+	License version 1.0, available at ~ http://www.eclipse.org/legal/epl-v10.html -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:tf="http://twiliofaces.org/twiliofaces"
+	template="/WEB-INF/layout/t.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="Chapter 1 - Recipe 7 - Text-To-Speech" />
+	</ui:define>
+	<ui:define name="bundle">
+		<tf:jsClient token="#{twilioCapabilityTokenController.capabilityToken}" debug="true" rtc="true">
+		<f:facet name="ready">
+		 	 $("#submit").click(function() { speak(); });
+		</f:facet>
+		<f:facet name="javascript">
+	      	function speak() {
+				var dialogue = $("#dialogue").val();
+				var voice = $('input:radio[name=voice]:checked').val();
+				$('#submit').attr('disabled', 'disabled');
+				Twilio.Device.connect({ 'dialogue' : dialogue, 'voice' : voice });
+			}
+			Twilio.Device.disconnect(function (conn) {
+				$('#submit').removeAttr('disabled');
+			});
+    	</f:facet>
+	</tf:jsClient>
+	</ui:define>
+	<ui:define name="content">
+			<p>
+				<label for="dialogue">Text to be spoken</label> <input type="text"
+					id="dialogue" name="dialogue" size="50">
+			</p>
+			<p>
+				<label for="voice-male">Male Voice</label> 
+				<input type="radio" id="voice-male" name="voice" value="1" checked="checked" />
+					
+				<label for="voice-female">Female Voice</label> 
+				<input type="radio" id="voice-female" name="voice" value="2"/>
+			</p>
+			<p>
+				<input type="button" id="submit" name="submit" value="Speak to me" />
+			</p>
+	</ui:define>
+</ui:composition>

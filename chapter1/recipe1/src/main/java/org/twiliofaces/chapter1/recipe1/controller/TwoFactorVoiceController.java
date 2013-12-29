@@ -16,6 +16,7 @@ import javax.inject.Named;
 
 import org.twiliofaces.chapter1.recipe1.controller.util.Utils;
 import org.twiliofaces.chapter1.recipe1.service.AsyncCallService;
+import org.twiliofaces.chapter1.recipe1.service.NumbersRepository;
 
 @Named
 @SessionScoped
@@ -27,7 +28,7 @@ public class TwoFactorVoiceController implements Serializable
    Logger logger = Logger.getLogger(TwoFactorVoiceController.class.getName());
 
    @Inject
-   NumbersController numbersController;
+   NumbersRepository numbersRepository;
 
    @Inject
    AsyncCallService asyncCallService;
@@ -49,7 +50,7 @@ public class TwoFactorVoiceController implements Serializable
          number = Utils.cleanNumber(number);
          String password = "" + (new Random()).nextInt(900000000)
                   + 1000000000;
-         numbersController.putUsernameNumberPassword(username, number,
+         numbersRepository.putUsernameNumberPassword(username, number,
                   password);
          logger.info("new username-number-password created: " + username
                   + " " + number + " " + password);
@@ -69,9 +70,9 @@ public class TwoFactorVoiceController implements Serializable
       if (username != null && !username.isEmpty() && verifyPassword != null
                && !verifyPassword.isEmpty())
       {
-         if (numbersController.containsUsername(username))
+         if (numbersRepository.containsUsername(username))
          {
-            String password = numbersController.getByUsername(username);
+            String password = numbersRepository.getByUsername(username);
             if (password.equals(verifyPassword))
                Utils.addFacesMessage("verification of passsword",
                         "the password is correct");
@@ -97,7 +98,7 @@ public class TwoFactorVoiceController implements Serializable
 
    public void restart()
    {
-      numbersController.removeNumberPassword(number);
+      numbersRepository.removeNumberPassword(number);
       username = null;
       number = null;
       verifyPassword = null;
