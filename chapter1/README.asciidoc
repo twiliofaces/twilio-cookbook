@@ -1,0 +1,17 @@
+== Into the Frying Pan - twilio cookbook recipes using java EE
+
+Into the Frying Pan, covers what you need to know about adding two-factor authentication to a website to verify users. 
+This chapter helps you set up a basic order-verification system, add the Click-to-Call functionality to a website, and record phonecalls. 
+We will also set up a company directory and learn how to use Twilio Client for Text-to-Speech.
+
+
+=== Summary of Code 
+
+* Chapter 1 (*Into the Frying Pan*)
+** recipe1 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe1[Adding two-factor voice authentication to verify users])
+** recipe2 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe2[Using Twilio SMS to set up two-factor authentication for secure websites])
+** recipe3 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe3[Adding order verification])
+** recipe4 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe4[Adding the Click-to-Call functionality to your website])
+** recipe5 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe5[Recording a phone call])
+** recipe6 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe6[Setting up a company directory])
+** recipe7 (https://github.com/twiliofaces/twilio-cookbook/tree/master/chapter1/recipe7[Setting up Text-to-Speech])
