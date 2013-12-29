@@ -28,7 +28,9 @@
 		</developer>
 	</developers>
 
-
+	<properties>
+		<version.jboss-logging>3.1.2.GA</version.jboss-logging>
+	</properties>
 	<build>
 		<finalName>ROOT</finalName>
 		<plugins>
@@ -77,6 +79,22 @@
 			<artifactId>recipe7</artifactId>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- JBoss stuff -->
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>${version.jboss-logging}</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<dependency>
+			<artifactId>giavacms-common-jpa</artifactId>
+			<groupId>org.giavacms.common</groupId>
+			<version>2.0.4-SNAPSHOT</version>
+		</dependency>
+
 
 	</dependencies>
 </project>
