@@ -1,0 +1,11 @@
+== Web Application to test all recipes - Twilio Cookbook recipes using java EE
+
+To test all recipes, you can login using your twilio account.
+
+
+=== Description of process 
+
+- registration
+
+- login
+
