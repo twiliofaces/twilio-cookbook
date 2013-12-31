@@ -16,10 +16,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.logging.Logger;
+import org.twiliofaces.cdi.doers.Sender;
+import org.twiliofaces.cdi.doers.simple.SimpleSender;
 import org.twiliofaces.recipes.model.User;
 import org.twiliofaces.recipes.repository.UserRepository;
 import org.twiliofaces.recipes.utils.EmailUtils;
 import org.twiliofaces.recipes.utils.PasswordUtils;
+
+import com.twilio.sdk.TwilioRestException;
 
 @Named
 @SessionScoped
@@ -83,6 +87,17 @@ public class UserController implements Serializable
    {
       // TODO Auto-generated method stub
       // TODO use user-provided twilio account information to send and sms to her mobile
+      try
+      {
+         SimpleSender simpleSender = new SimpleSender(getUser().getTwilioNumber(), getUser().getApplicationSid(),
+                  getUser().getTwilioToken());
+         simpleSender.to(getUser().getMobile()).body(" ecco la tua password: " + getUser().getPassword() + " ").send();
+      }
+      catch (TwilioRestException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
       return true;
    }
 
