@@ -46,6 +46,7 @@
 		<web-resource-collection>
 			<web-resource-name>All Page</web-resource-name>
 			<url-pattern>/recipes/*</url-pattern>
+			<url-pattern>/private/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<!-- Anyone with one of the listed roles may access this area -->

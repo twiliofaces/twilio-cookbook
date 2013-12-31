@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.logging.Logger;
-import org.twiliofaces.recipes.model.UserAuth;
+import org.twiliofaces.recipes.model.User;
 import org.twiliofaces.recipes.repository.UserRepository;
 import org.twiliofaces.recipes.utils.EmailUtils;
 import org.twiliofaces.recipes.utils.PasswordUtils;
@@ -35,141 +35,189 @@ public class UserController implements Serializable
    @Inject
    UserRepository userRepository;
 
-   private UserAuth element;
+   private User user;
 
    // -----------------------------------------------------
 
    public String save()
    {
-      if (userRepository.findByUsername(getElement().getUsername()) != null)
+      if (!checkUsername())
       {
-         FacesContext.getCurrentInstance().addMessage("",
-                  new FacesMessage("Nome utente non disponibile"));
          return null;
       }
-      if (!EmailUtils.isValidEmailAddress(getElement().getUsername()))
+      if (!checkPassword())
+      {
+         return null;
+      }
+      userRepository.persist(getUser());
+      return "";
+   }
+
+   private boolean generateRandomPasswordAndSendSms(String title)
+   {
+      if (getUser().getMobile() == null || getUser().getMobile().isEmpty())
       {
          FacesContext
                   .getCurrentInstance()
                   .addMessage(
                            "",
-                           new FacesMessage("Nome utente non valido",
-                                    "Il nome utente deve essere costituito da un indirizzo email valido"));
-         return null;
+                           new FacesMessage("Login name must be a valid email address",
+                                    ""));
+         return false;
       }
-      if (!controllPassword())
-      {
-         return null;
-      }
-
-      return "";
-   }
-
-   public String update()
-   {
-      if (!getElement().isAdmin()
-               && !EmailUtils.isValidEmailAddress(getElement().getUsername()))
-      {
-         FacesContext
-                  .getCurrentInstance()
-                  .addMessage(
-                           "",
-                           new FacesMessage("Nome utente non valido",
-                                    "Il nome utente deve essere costituito da un indirizzo email valido"));
-         return null;
-      }
-      if (getElement().isRandom())
-      {
-         generateRandomPasswordAndSendEmail("Accesso al portale: modifica password");
-      }
-      else
-      {
-         if (getElement().getNewPassword() != null
-                  && !getElement().getNewPassword().isEmpty())
-         {
-            if (withHashAlgorithm)
-            {
-               getElement().setPassword(
-                        PasswordUtils.createPassword(getElement()
-                                 .getNewPassword()));
-            }
-            else
-            {
-               getElement().setPassword(getElement().getNewPassword());
-            }
-         }
-         else
-         {
-            logger.info("non e' stato richiesto un cambio password per account: "
-                     + getElement().getUsername());
-         }
-      }
-      return "";
-   }
-
-   private void generateRandomPasswordAndSendEmail(String title)
-   {
       String newPassword = UUID.randomUUID().toString().substring(1, 8);
+      getUser().setNewPassword(newPassword);
+      getUser().setConfirmPassword(newPassword);
       if (withHashAlgorithm)
       {
-         getElement().setPassword(PasswordUtils.createPassword(newPassword));
+         getUser().setPassword(PasswordUtils.createPassword(newPassword));
       }
       else
       {
-         getElement().setPassword(newPassword);
+         getUser().setPassword(newPassword);
       }
-      String body = "La password dell'utente '" + getElement().getUsername()
-               + "' è : " + newPassword;
-      String result = "";
-      logger.info(result);
+      return sendSms(newPassword, title);
    }
 
-   private boolean controllPassword()
+   private boolean sendSms(String newPassword, String title)
    {
-      if (getElement().isRandom())
+      // TODO Auto-generated method stub
+      // TODO use user-provided twilio account information to send and sms to her mobile
+      return true;
+   }
+
+   private boolean checkUsername()
+   {
+      if (getUser().getId() != null)
       {
-         generateRandomPasswordAndSendEmail("Generazione nuovo account");
+         // username cannot be modified
+         return true;
       }
-      else
+      if (!getUser().isAdmin()
+               && !EmailUtils.isValidEmailAddress(getUser().getUsername()))
       {
-         if (getElement().getNewPassword() == null
-                  || getElement().getNewPassword().isEmpty())
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Login name must be a valid email address",
+                                    ""));
+         return false;
+      }
+      if (userRepository.findByUsername(getUser().getUsername()) != null)
+      {
+         FacesContext.getCurrentInstance().addMessage("",
+                  new FacesMessage("Login name already in use"));
+         return false;
+      }
+      return true;
+   }
+
+   private boolean checkPassword()
+   {
+      if (getUser().isRandom())
+      {
+         boolean result = generateRandomPasswordAndSendSms("New account");
+         if (!result)
          {
             FacesContext
                      .getCurrentInstance()
                      .addMessage(
                               "",
-                              new FacesMessage("Password non inserita",
-                                       "La password deve essere inserita obbligatoriamente!"));
-            return false;
+                              new FacesMessage("Failed to send password via SMS",
+                                       ""));
          }
-         else
-         {
-            if (withHashAlgorithm)
-            {
-               getElement().setPassword(
-                        PasswordUtils.createPassword(getElement()
-                                 .getNewPassword()));
-            }
-            else
-            {
-               getElement().setPassword(getElement().getNewPassword());
-            }
-         }
+         return result;
+      }
+      if (getUser().getNewPassword() == null
+               || getUser().getNewPassword().isEmpty())
+      {
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Password cannot be empty",
+                                    ""));
+         return false;
+      }
+      if (!getUser().getNewPassword().equals(getUser().getConfirmPassword()))
+      {
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Password and password confirmation do not match",
+                                    ""));
+         return false;
+      }
+      if (withHashAlgorithm)
+      {
+         getUser().setPassword(
+                  PasswordUtils.createPassword(getUser()
+                           .getNewPassword()));
+      }
+      else
+      {
+         getUser().setPassword(getUser().getNewPassword());
       }
       return true;
    }
 
-   public UserAuth getElement()
+   public User getUser()
    {
-      if (element == null)
-         this.element = new UserAuth();
-      return element;
+      if (user == null)
+      {
+         this.user = new User();
+         this.user.setRandom(true);
+         this.user.setRole("user");
+
+      }
+      return user;
    }
 
-   public void setElement(UserAuth element)
+   public void setUser(User element)
    {
-      this.element = element;
+      this.user = element;
    }
 
+   public String renewPassword()
+   {
+      User user = userRepository.findByUsername(getUser().getUsername());
+      if (user == null)
+      {
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Unknown email address",
+                                    ""));
+         return null;
+      }
+      if (!getUser().getMobile().equals(user.getMobile()))
+      {
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Expected mobile number does not match the provided one",
+                                    ""));
+         return null;
+      }
+      if (!generateRandomPasswordAndSendSms("Password recovery"))
+      {
+         FacesContext
+                  .getCurrentInstance()
+                  .addMessage(
+                           "",
+                           new FacesMessage("Failed to send password via SMS",
+                                    ""));
+         return null;
+      }
+      user.setPassword(getUser().getPassword());
+      user.setNewPassword(getUser().getNewPassword());
+      user.setConfirmPassword(getUser().getConfirmPassword());
+      userRepository.update(user);
+      setUser(user);
+      return "/registration.xhtml";
+   }
 }

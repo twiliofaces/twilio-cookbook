@@ -12,10 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-public class UserAuth implements Serializable
+@Table(name = "UserAuth")
+public class User implements Serializable
 {
 
    private static final long serialVersionUID = 1L;
@@ -23,6 +25,7 @@ public class UserAuth implements Serializable
    private Long id;
    private String username;
    private String name;
+   private String mobile;
    private String password;
    private String role;
 
@@ -30,16 +33,14 @@ public class UserAuth implements Serializable
    private String newPassword;
    private String confirmPassword;
 
-   private boolean admin;
    private boolean random;
    private String applicationSid;
    private String twilioNumber;
    private String twilioSid;
    private String twilioToken;
 
-   public UserAuth()
+   public User()
    {
-      // TODO Auto-generated constructor stub
    }
 
    @Id
@@ -110,26 +111,7 @@ public class UserAuth implements Serializable
    @Transient
    public boolean isAdmin()
    {
-      return admin;
-   }
-
-   public void setAdmin(boolean admin)
-   {
-      this.admin = admin;
-   }
-
-   @Transient
-   public void verifyIfAdmin()
-   {
-      if (role.equals("admin"))
-      {
-         setAdmin(true);
-      }
-      else
-      {
-         setAdmin(false);
-
-      }
+      return ("admin".equals(role));
    }
 
    @Transient
@@ -201,6 +183,16 @@ public class UserAuth implements Serializable
    public void setTwilioToken(String twilioToken)
    {
       this.twilioToken = twilioToken;
+   }
+
+   public String getMobile()
+   {
+      return mobile;
+   }
+
+   public void setMobile(String mobile)
+   {
+      this.mobile = mobile;
    }
 
 }

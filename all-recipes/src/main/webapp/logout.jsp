@@ -9,5 +9,5 @@
 		e.printStackTrace();
 	}
 	response.sendRedirect(request.getContextPath()
-			+ "/administration.jsp");
+			+ "/index.jsp");
 %>

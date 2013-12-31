@@ -21,7 +21,7 @@ import com.twilio.sdk.TwilioRestException;
 
 @Named
 @SessionScoped
-public class MakeCallController implements Serializable
+public class MakeCallController5 implements Serializable
 {
    private static final long serialVersionUID = 1L;
    private String toNumber = "12345678"; // YOUR PHONE NUMBER TO CALL
@@ -29,7 +29,7 @@ public class MakeCallController implements Serializable
    private String called;
    static String URL = "/callback.twiml";
    static String RECORDING_URL = "recording.jsf";
-   Logger logger = Logger.getLogger(MakeCallController.class.getName());
+   Logger logger = Logger.getLogger(MakeCallController5.class.getName());
 
    @Inject
    Caller caller;
@@ -37,7 +37,7 @@ public class MakeCallController implements Serializable
    @Inject
    RecordingReporter recordingReporter;
 
-   public MakeCallController()
+   public MakeCallController5()
    {
    }
 
