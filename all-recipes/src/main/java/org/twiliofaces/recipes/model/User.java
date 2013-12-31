@@ -7,12 +7,15 @@
 package org.twiliofaces.recipes.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -28,13 +31,13 @@ public class User implements Serializable
    private String mobile;
    private String password;
    private String role;
+   private Date registrationDate;
 
    private String oldPassword;
    private String newPassword;
    private String confirmPassword;
 
    private boolean random;
-   private String applicationSid;
    private String twilioNumber;
    private String twilioSid;
    private String twilioToken;
@@ -145,16 +148,6 @@ public class User implements Serializable
       this.role = role;
    }
 
-   public String getApplicationSid()
-   {
-      return applicationSid;
-   }
-
-   public void setApplicationSid(String applicationSid)
-   {
-      this.applicationSid = applicationSid;
-   }
-
    public String getTwilioNumber()
    {
       return twilioNumber;
@@ -193,6 +186,17 @@ public class User implements Serializable
    public void setMobile(String mobile)
    {
       this.mobile = mobile;
+   }
+
+   @Temporal(TemporalType.TIMESTAMP)
+   public Date getRegistrationDate()
+   {
+      return registrationDate;
+   }
+
+   public void setRegistrationDate(Date registrationDate)
+   {
+      this.registrationDate = registrationDate;
    }
 
 }

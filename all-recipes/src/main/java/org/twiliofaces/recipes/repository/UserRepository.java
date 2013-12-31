@@ -7,6 +7,7 @@
 package org.twiliofaces.recipes.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.giavacms.common.model.Search;
 import org.giavacms.common.repository.AbstractRepository;
 import org.jboss.logging.Logger;
 import org.twiliofaces.recipes.model.User;
+import org.twiliofaces.recipes.model.UserExpired;
 import org.twiliofaces.recipes.utils.PasswordUtils;
 
 @Named
@@ -153,4 +155,29 @@ public class UserRepository extends AbstractRepository<User> implements
       }
    }
 
+   @Override
+   public boolean delete(Object key)
+   {
+      try
+      {
+         User user = find(key);
+         UserExpired userExpired = new UserExpired(user);
+         userExpired.setExpirationDate(new Date());
+         getEm().remove(user);
+         getEm().persist(userExpired);
+         return true;
+      }
+      catch (Exception e)
+      {
+         logger.error(e.getMessage(), e);
+         return false;
+      }
+   }
+
+   @Override
+   public User persist(User object)
+   {
+      object.setRegistrationDate(new Date());
+      return super.persist(object);
+   }
 }
