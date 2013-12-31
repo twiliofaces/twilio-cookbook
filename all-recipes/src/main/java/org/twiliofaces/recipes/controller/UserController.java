@@ -86,7 +86,7 @@ public class UserController implements Serializable
       {
          SimpleSender simpleSender = new SimpleSender(getUser().getTwilioNumber(), getUser().getTwilioSid(),
                   getUser().getTwilioToken());
-         simpleSender.to(getUser().getMobile()).body(" ecco la tua password: " + getUser().getPassword() + " ").send();
+         simpleSender.to(getUser().getMobile()).body(title + " - the password is: " + getUser().getNewPassword() + " ").send();
          return true;
       }
       catch (Exception e)
