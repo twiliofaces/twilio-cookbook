@@ -7,15 +7,21 @@
 package org.twiliofaces.recipes.utils;
 
 import org.twiliofaces.cdi.extension.util.Account;
-import org.twiliofaces.recipes.model.UserAccount;
+import org.twiliofaces.recipes.model.UserAuth;
 
 public class AccountUtils
 {
-   public static UserAccount convert(Account account)
+   public static Account convert(UserAuth userAuth)
    {
-      if (account != null)
-         return new UserAccount(account);
+      if (userAuth != null)
+      {
+         Account account = new Account();
+         account.setApplicationSid(userAuth.getApplicationSid());
+         account.setTwilioNumber(userAuth.getTwilioNumber());
+         account.setTwilioSid(userAuth.getTwilioSid());
+         account.setTwilioToken(userAuth.getTwilioToken());
+         return account;
+      }
       return null;
    }
-
 }

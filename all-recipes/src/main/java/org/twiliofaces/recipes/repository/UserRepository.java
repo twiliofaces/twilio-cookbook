@@ -192,4 +192,24 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       return "username asc";
    }
 
+   public UserAuth getAccountByName(String accountName)
+   {
+      try
+      {
+         @SuppressWarnings("unchecked")
+         List<UserAuth> list = em
+                  .createQuery(
+                           "select t from " + UserAuth.class.getSimpleName() + " t where t.name = :NAME")
+                  .setParameter("NAME", accountName).getResultList();
+         if (list != null && list.size() > 0)
+            return list.get(0);
+         return null;
+      }
+      catch (Exception e)
+      {
+         logger.error(e.getMessage(), e);
+         return null;
+      }
+   }
+
 }

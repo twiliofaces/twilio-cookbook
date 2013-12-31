@@ -16,10 +16,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.twiliofaces.cdi.extension.TwilioManager;
+import org.twiliofaces.cdi.extension.util.Account;
 import org.twiliofaces.cdi.producer.util.ELUtils;
 import org.twiliofaces.inject.configuration.CustomTwilioAccount;
-import org.twiliofaces.recipes.model.UserAccount;
-import org.twiliofaces.recipes.repository.UserAccountRepository;
+import org.twiliofaces.recipes.repository.UserRepository;
 import org.twiliofaces.recipes.utils.AccountUtils;
 
 @Named
@@ -32,19 +32,19 @@ public class AccountProducer implements Serializable
    FacesContext facesContext;
 
    @Inject
-   UserAccountRepository userAccountRepository;
+   UserRepository userRepository;
 
    @Inject
    TwilioManager twilioManager;
 
    @CustomTwilioAccount
    @Produces
-   public UserAccount getAccount(InjectionPoint ip)
+   public Account getAccount(InjectionPoint ip)
    {
       String accountName = ip.getAnnotated().getAnnotation(CustomTwilioAccount.class).accountName();
       if (accountName != null && accountName.trim().isEmpty() && twilioManager != null)
       {
-         return AccountUtils.convert(twilioManager.getDefaultAccount());
+         return twilioManager.getDefaultAccount();
       }
       else
       {
@@ -53,7 +53,7 @@ public class AccountProducer implements Serializable
             accountName = ELUtils.resolveElExpression(accountName, facesContext);
          }
          if (accountName != null)
-            return userAccountRepository.getAccountByName(accountName);
+            return AccountUtils.convert(userRepository.getAccountByName(accountName));
       }
       return null;
    }
