@@ -19,13 +19,13 @@ import javax.persistence.PersistenceContext;
 import org.giavacms.common.model.Search;
 import org.giavacms.common.repository.AbstractRepository;
 import org.jboss.logging.Logger;
-import org.twiliofaces.recipes.model.UserAuth;
+import org.twiliofaces.recipes.model.User;
 import org.twiliofaces.recipes.utils.PasswordUtils;
 
 @Named
 @Stateless
 @LocalBean
-public class UserRepository extends AbstractRepository<UserAuth> implements
+public class UserRepository extends AbstractRepository<User> implements
          Serializable
 {
 
@@ -41,21 +41,10 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
    }
 
    @Override
-   protected void applyRestrictions(Search<UserAuth> search, String alias,
+   protected void applyRestrictions(Search<User> search, String alias,
             String separator, StringBuffer sb, Map<String, Object> params)
    {
 
-      boolean byRole = search.getObj().getRole() != null
-               && !search.getObj().getRole().isEmpty();
-
-      String roleLeftJoinAlias = "r";
-      if (byRole)
-      {
-         sb.append("left join ").append(alias).append(".userRoles ")
-                  .append(roleLeftJoinAlias).append(" ");
-      }
-
-      // TODO Auto-generated method stub
       // NAME
       if (search.getObj().getName() != null
                && !search.getObj().getName().isEmpty())
@@ -74,10 +63,10 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       }
 
       // ROLE
-      if (byRole)
+      if (search.getObj().getRole() != null
+               && !search.getObj().getRole().isEmpty())
       {
-         sb.append(separator).append(roleLeftJoinAlias)
-                  .append(".roleName = :ROLE ");
+         sb.append(separator).append(".role = :ROLE ");
          params.put("ROLE", search.getObj().getRole());
       }
 
@@ -86,34 +75,34 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
    @SuppressWarnings("unchecked")
    public void verifyConfiguration()
    {
-      List<UserAuth> list = em
+      List<User> list = em
                .createQuery(
-                        "select t from UserAuth t left join fetch t.userRoles r where r.roleName = :ROLEADMIN")
+                        "select t from " + User.class.getSimpleName() + " t where t.role = :ROLEADMIN")
                .setParameter("ROLEADMIN", "admin").getResultList();
       if (list == null || list.size() == 0)
       {
-         UserAuth user = new UserAuth();
+         User user = new User();
          user.setName("admin");
-         user.setPassword(PasswordUtils.createPassword("admin"));
          user.setUsername("admin");
-         user.setAdmin(true);
+         user.setPassword(PasswordUtils.createPassword("admin"));
+         user.setRole("admin");
          persist(user);
-         logger.info("admin system created");
+         logger.info("admin created");
       }
       else
       {
-         logger.info("admin system exist");
+         logger.info("admin exists");
       }
    }
 
    @SuppressWarnings("unchecked")
-   public UserAuth findByUsername(String username)
+   public User findByUsername(String username)
    {
       try
       {
-         List<UserAuth> list = em
+         List<User> list = em
                   .createQuery(
-                           "select t from UserAuth t where t.username = :USERNAME")
+                           "select t from " + User.class.getSimpleName() + " t where t.username = :USERNAME")
                   .setParameter("USERNAME", username).getResultList();
          if (list != null && list.size() > 0)
             return list.get(0);
@@ -123,54 +112,6 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       {
          logger.error(e.getMessage(), e);
          return null;
-      }
-   }
-
-   @Override
-   public UserAuth persist(UserAuth userAuth)
-   {
-      try
-      {
-         if (userAuth.isAdmin())
-         {
-            userAuth.setRole("admin");
-         }
-         else
-         {
-            userAuth.setRole("user");
-
-         }
-         em.persist(userAuth);
-         return userAuth;
-      }
-      catch (Exception e)
-      {
-         logger.error(e.getMessage(), e);
-         return null;
-      }
-   }
-
-   @Override
-   public boolean update(UserAuth userAuth)
-   {
-      try
-      {
-         if (userAuth.isAdmin())
-         {
-            userAuth.setRole("admin");
-         }
-         else
-         {
-            userAuth.setRole("user");
-
-         }
-         em.merge(userAuth);
-         return true;
-      }
-      catch (Exception e)
-      {
-         logger.error(e.getMessage(), e);
-         return false;
       }
    }
 
@@ -192,14 +133,14 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       return "username asc";
    }
 
-   public UserAuth getAccountByName(String accountName)
+   public User getAccountByName(String accountName)
    {
       try
       {
          @SuppressWarnings("unchecked")
-         List<UserAuth> list = em
+         List<User> list = em
                   .createQuery(
-                           "select t from " + UserAuth.class.getSimpleName() + " t where t.name = :NAME")
+                           "select t from " + User.class.getSimpleName() + " t where t.name = :NAME")
                   .setParameter("NAME", accountName).getResultList();
          if (list != null && list.size() > 0)
             return list.get(0);

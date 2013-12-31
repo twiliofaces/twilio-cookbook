@@ -7,11 +7,11 @@
 package org.twiliofaces.recipes.utils;
 
 import org.twiliofaces.cdi.extension.util.Account;
-import org.twiliofaces.recipes.model.UserAuth;
+import org.twiliofaces.recipes.model.User;
 
 public class AccountUtils
 {
-   public static Account convert(UserAuth userAuth)
+   public static Account convert(User userAuth)
    {
       if (userAuth != null)
       {

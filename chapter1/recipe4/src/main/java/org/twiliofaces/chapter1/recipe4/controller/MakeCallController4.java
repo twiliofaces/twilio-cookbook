@@ -20,18 +20,18 @@ import com.twilio.sdk.TwilioRestException;
 
 @Named
 @SessionScoped
-public class MakeCallController implements Serializable
+public class MakeCallController4 implements Serializable
 {
    private static final long serialVersionUID = 1L;
    private String toNumber = "12345678"; // Number to call
    private String called;
    static String URL = "/callback.twiml";
-   Logger logger = Logger.getLogger(MakeCallController.class.getName());
+   Logger logger = Logger.getLogger(MakeCallController4.class.getName());
 
    @Inject
    Caller caller;
 
-   public MakeCallController()
+   public MakeCallController4()
    {
    }
 

@@ -1,0 +1,46 @@
+<!-- ~ Copyright 2013 twiliofaces.org. ~ ~ Licensed under the Eclipse Public 
+	License version 1.0, available at ~ http://www.eclipse.org/legal/epl-v10.html -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/layout/t.xhtml">
+
+	<ui:define name="title">
+		<h:outputText
+			value="Twilio Cookbook Recipes using java EE (twiliofaces): all recipes" />
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+
+			<ui:fragment rendered="#{loginController.admin}">
+				<h:outputLink value="/private/users.xhtml">
+					<h:outputText value="Account configurati" />
+				</h:outputLink>
+
+				<h:outputLink value="/private/email.xhtml">
+					<h:outputText value="Configuratione posta elettronica" />
+				</h:outputLink>
+
+				<hr />
+			</ui:fragment>
+
+			<c:forEach begin="1" end="10" varStatus="varStatus">
+				<h:outputLink value="/recipes/recipe#{varStatus.index}/index.jsf">
+					<h:outputText value="Recipe n. #{varStatus.index}" />
+				</h:outputLink>
+				<br />
+				<br />
+			</c:forEach>
+
+			<hr />
+			<br />
+
+			<h:outputLink value="/logout.jsp">
+				<h:outputText value="Logout" />
+			</h:outputLink>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
