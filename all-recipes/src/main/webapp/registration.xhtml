@@ -16,46 +16,46 @@
 
 			<h:panelGrid columns="2" rendered="#{empty userController.user.id}">
 
-				<h:outputLabel for="name" value="fullname: " />
+				<h:outputLabel for="name" value="Fullname: " />
 				<h:inputText id="name" value="#{userController.user.name}"
 					required="true" requiredMessage="Fullname is required" />
 
 				<h:outputLabel for="username"
-					value="login (must be a valid email address): " />
+					value="Login (must be a valid email address): " />
 				<h:inputText id="username" value="#{userController.user.username}"
 					required="true"
 					requiredMessage="Username is required and must be a valid email address" />
 
 				<h:outputLabel for="mobile"
-					value="mobile number (password will be sent here): " />
+					value="Mobile Number (password will be sent here): " />
 				<h:inputText id="mobile" value="#{userController.user.mobile}"
 					required="true"
 					requiredMessage="Mobile number is required" />
 
-				<h:outputLabel for="password" value="password: "
+				<h:outputLabel for="password" value="Password: "
 					rendered="#{not userController.user.random}" />
 				<h:inputSecret id="password" value="#{userController.user.password}"
 					rendered="#{not userController.user.random}" />
 
-				<h:outputLabel for="confirmPassword" value="confirm password: "
+				<h:outputLabel for="confirmPassword" value="Confirm password: "
 					rendered="#{not userController.user.random}" />
 				<h:inputSecret id="confirmPassword"
 					value="#{userController.user.confirmPassword}"
 					rendered="#{not userController.user.random}" />
 
-				<h:outputLabel for="twilioNumber" value="twilioNumber: " />
+				<h:outputLabel for="twilioNumber" value="Twilio Number: " />
 				<h:inputText id="twilioNumber" required="true"
-					requiredMessage="Twilio number is required"
+					requiredMessage="Twilio Number is required"
 					value="#{userController.user.twilioNumber}" />
 
-				<h:outputLabel for="applicationSid" value="applicationSid: " />
-				<h:inputText id="applicationSid" required="true"
-					requiredMessage="Application sid is required"
-					value="#{userController.user.applicationSid}" />
-
-				<h:outputLabel for="twilioSid" value="twilioSid: " />
+				<h:outputLabel for="twilioSid" value="Twilio Sid: " />
 				<h:inputText id="twilioSid" value="#{userController.user.twilioSid}"
-					required="true" requiredMessage="Twilio sid is required" />
+					required="true" requiredMessage="Twilio Sid is required" />
+
+				<h:outputLabel for="twilioToken" value="Twilio Token: " />
+				<h:inputText id="twilioToken" required="true"
+					requiredMessage="Twilio Token is required"
+					value="#{userController.user.twilioToken}" />
 
 				<h:commandButton action="#{userController.save}" value="save" />
 
@@ -64,9 +64,9 @@
 			<h:panelGrid columns="1"
 				rendered="#{not empty userController.user.id}">
 
-				<h:outputText rendered="false"
-					value="Password for user #{userController.user.username} (#{userController.user.name}) has been sent to #{userController.user.mobile}" />
 				<h:outputText rendered="true"
+					value="Password for user #{userController.user.username} (#{userController.user.name}) has been sent to #{userController.user.mobile}" />
+				<h:outputText rendered="false"
 					value="Password for user #{userController.user.username} (#{userController.user.name}) is: #{userController.user.newPassword}" />
 
 				<h:outputLink value="/recipes/table-of-contents.jsf">

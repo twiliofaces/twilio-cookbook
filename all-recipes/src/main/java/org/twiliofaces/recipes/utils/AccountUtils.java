@@ -16,7 +16,6 @@ public class AccountUtils
       if (userAuth != null)
       {
          Account account = new Account();
-         account.setApplicationSid(userAuth.getApplicationSid());
          account.setTwilioNumber(userAuth.getTwilioNumber());
          account.setTwilioSid(userAuth.getTwilioSid());
          account.setTwilioToken(userAuth.getTwilioToken());

@@ -16,14 +16,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.logging.Logger;
-import org.twiliofaces.cdi.doers.Sender;
 import org.twiliofaces.cdi.doers.simple.SimpleSender;
 import org.twiliofaces.recipes.model.User;
 import org.twiliofaces.recipes.repository.UserRepository;
 import org.twiliofaces.recipes.utils.EmailUtils;
 import org.twiliofaces.recipes.utils.PasswordUtils;
-
-import com.twilio.sdk.TwilioRestException;
 
 @Named
 @SessionScoped
@@ -85,20 +82,18 @@ public class UserController implements Serializable
 
    private boolean sendSms(String newPassword, String title)
    {
-      // TODO Auto-generated method stub
-      // TODO use user-provided twilio account information to send and sms to her mobile
       try
       {
-         SimpleSender simpleSender = new SimpleSender(getUser().getTwilioNumber(), getUser().getApplicationSid(),
+         SimpleSender simpleSender = new SimpleSender(getUser().getTwilioNumber(), getUser().getTwilioSid(),
                   getUser().getTwilioToken());
-         simpleSender.to(getUser().getMobile()).body(" ecco la tua password: " + getUser().getPassword() + " ").send();
+         simpleSender.to(getUser().getMobile()).body(title + " - the password is: " + getUser().getNewPassword() + " ").send();
+         return true;
       }
-      catch (TwilioRestException e)
+      catch (Exception e)
       {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
+         logger.error(e.getMessage(), e);
+         return false;
       }
-      return true;
    }
 
    private boolean checkUsername()
