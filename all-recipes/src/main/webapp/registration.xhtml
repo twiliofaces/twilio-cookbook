@@ -12,10 +12,38 @@
 			value="Twilio Cookbook Recipes using java EE (twiliofaces): all recipes" />
 	</ui:define>
 	<ui:define name="content">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="name" value="name: " />
+				<h:inputText id="name" value="#{userController.element.name}" />
+
+				<h:outputLabel for="email" value="email: " />
+				<h:inputText id="email" value="#{userController.element.username}" />
+				
+				<h:outputLabel for="password" value="password: " />
+				<h:inputSecret id="password" value="#{userController.element.password}" />
+				
+				
+				<h:outputLabel for="email" value="email: " />
+				<h:inputText id="email" value="#{userController.element.username}" />
+
+				<h:outputLabel for="applicationSid" value="applicationSid: " />
+				<h:inputText id="applicationSid"
+					value="#{userController.element.userAccount.applicationSid}" />
 
 
+				<h:outputLabel for="twilioNumber" value="twilioNumber: " />
+				<h:inputText id="twilioNumber"
+					value="#{userController.element.userAccount.twilioNumber}" />
 
+				<h:outputLabel for="twilioSid" value="twilioSid: " />
+				<h:inputText id="twilioSid"
+					value="#{userController.element.userAccount.twilioSid}" />
 
+				<h:commandButton action="#{userController.save}" value="save" />
+				<h:commandButton action="#{userController.reset}" value="reset" />
 
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

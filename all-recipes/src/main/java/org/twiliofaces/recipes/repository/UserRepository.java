@@ -20,7 +20,6 @@ import org.giavacms.common.model.Search;
 import org.giavacms.common.repository.AbstractRepository;
 import org.jboss.logging.Logger;
 import org.twiliofaces.recipes.model.UserAuth;
-import org.twiliofaces.recipes.model.UserRole;
 import org.twiliofaces.recipes.utils.PasswordUtils;
 
 @Named
@@ -134,25 +133,12 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       {
          if (userAuth.isAdmin())
          {
-            UserRole role = new UserRole();
-            role.setRoleName("admin");
-            role.setUserAuth(userAuth);
-            userAuth.addUserRole(role);
+            userAuth.setRole("admin");
          }
-         else if (userAuth.getRoles() != null
-                  && userAuth.getRoles().size() > 0)
+         else
          {
-            UserRole role = new UserRole();
-            role.setRoleName("user");
-            role.setUserAuth(userAuth);
-            userAuth.addUserRole(role);
-            for (String roleName : userAuth.getRoles())
-            {
-               role = new UserRole();
-               role.setRoleName(roleName);
-               role.setUserAuth(userAuth);
-               userAuth.addUserRole(role);
-            }
+            userAuth.setRole("user");
+
          }
          em.persist(userAuth);
          return userAuth;
@@ -171,30 +157,12 @@ public class UserRepository extends AbstractRepository<UserAuth> implements
       {
          if (userAuth.isAdmin())
          {
-            userAuth.setUserRoles(null);
-            UserRole role = new UserRole();
-            role.setRoleName("admin");
-            role.setUserAuth(userAuth);
-            userAuth.addUserRole(role);
-            em.persist(role);
+            userAuth.setRole("admin");
          }
-         else if (userAuth.getRoles() != null
-                  && userAuth.getRoles().size() > 0)
+         else
          {
-            userAuth.setUserRoles(null);
-            em.merge(userAuth);
-            UserRole role = new UserRole();
-            role.setRoleName("user");
-            role.setUserAuth(userAuth);
-            userAuth.addUserRole(role);
-            for (String roleName : userAuth.getRoles())
-            {
-               role = new UserRole();
-               role.setUserAuth(userAuth);
-               role.setRoleName(roleName);
-               userAuth.addUserRole(role);
-               em.persist(role);
-            }
+            userAuth.setRole("user");
+
          }
          em.merge(userAuth);
          return true;

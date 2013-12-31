@@ -7,17 +7,11 @@
 package org.twiliofaces.recipes.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -30,17 +24,18 @@ public class UserAuth implements Serializable
    private String username;
    private String name;
    private String password;
-   private List<UserRole> userRoles;
+   private String role;
 
-   private boolean newElement = false;
    private String oldPassword;
    private String newPassword;
    private String confirmPassword;
-   private List<String> roles;
-   private String role;
+
    private boolean admin;
    private boolean random;
-   private UserAccount userAccount;
+   private String applicationSid;
+   private String twilioNumber;
+   private String twilioSid;
+   private String twilioToken;
 
    public UserAuth()
    {
@@ -69,24 +64,6 @@ public class UserAuth implements Serializable
       this.username = username;
    }
 
-   @Transient
-   public List<String> getRoles()
-   {
-      if (this.roles == null)
-         this.roles = new ArrayList<String>();
-      return roles;
-   }
-
-   public void setRoles(List<String> roles)
-   {
-      this.roles = roles;
-   }
-
-   public void addRole(String role)
-   {
-      getRoles().add(role);
-   }
-
    public String getPassword()
    {
       return password;
@@ -95,28 +72,6 @@ public class UserAuth implements Serializable
    public void setPassword(String password)
    {
       this.password = password;
-   }
-
-   @Transient
-   public String getRoleNames()
-   {
-      StringBuffer roles = new StringBuffer();
-      for (UserRole role : getUserRoles())
-      {
-         roles.append("," + role.getRoleName());
-      }
-      return roles.length() > 0 ? roles.toString().substring(1) : "";
-   }
-
-   @Transient
-   public boolean isNewElement()
-   {
-      return newElement;
-   }
-
-   public void setNewElement(boolean newElement)
-   {
-      this.newElement = newElement;
    }
 
    @Transient
@@ -166,7 +121,7 @@ public class UserAuth implements Serializable
    @Transient
    public void verifyIfAdmin()
    {
-      if (getRoleNames().contains("admin"))
+      if (role.equals("admin"))
       {
          setAdmin(true);
       }
@@ -188,26 +143,6 @@ public class UserAuth implements Serializable
       this.random = random;
    }
 
-   @OneToMany(mappedBy = "userAuth", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-   public List<UserRole> getUserRoles()
-   {
-      if (this.userRoles == null)
-      {
-         this.userRoles = new ArrayList<UserRole>();
-      }
-      return this.userRoles;
-   }
-
-   public void setUserRoles(List<UserRole> userRoles)
-   {
-      this.userRoles = userRoles;
-   }
-
-   public void addUserRole(UserRole userRole)
-   {
-      getUserRoles().add(userRole);
-   }
-
    public String getName()
    {
       return name;
@@ -218,18 +153,6 @@ public class UserAuth implements Serializable
       this.name = name;
    }
 
-   @Override
-   public String toString()
-   {
-      return "UserAuth [id=" + id + ", username=" + username + ", name="
-               + name + ", password=" + password + ", userRoles=" + userRoles
-               + ", newElement=" + newElement + ", oldPassword=" + oldPassword
-               + ", newPassword=" + newPassword + ", confirmPassword="
-               + confirmPassword + ", roles=" + roles + ", admin=" + admin
-               + ", random=" + random + "]";
-   }
-
-   @Transient
    public String getRole()
    {
       return role;
@@ -240,15 +163,44 @@ public class UserAuth implements Serializable
       this.role = role;
    }
 
-   @OneToOne
-   public UserAccount getUserAccount()
+   public String getApplicationSid()
    {
-      return userAccount;
+      return applicationSid;
    }
 
-   public void setUserAccount(UserAccount userAccount)
+   public void setApplicationSid(String applicationSid)
    {
-      this.userAccount = userAccount;
+      this.applicationSid = applicationSid;
+   }
+
+   public String getTwilioNumber()
+   {
+      return twilioNumber;
+   }
+
+   public void setTwilioNumber(String twilioNumber)
+   {
+      this.twilioNumber = twilioNumber;
+   }
+
+   public String getTwilioSid()
+   {
+      return twilioSid;
+   }
+
+   public void setTwilioSid(String twilioSid)
+   {
+      this.twilioSid = twilioSid;
+   }
+
+   public String getTwilioToken()
+   {
+      return twilioToken;
+   }
+
+   public void setTwilioToken(String twilioToken)
+   {
+      this.twilioToken = twilioToken;
    }
 
 }
