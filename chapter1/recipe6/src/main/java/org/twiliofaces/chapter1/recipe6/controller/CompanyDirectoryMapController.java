@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import org.twiliofaces.chapter1.recipe6.model.CompanyNumber;
-import org.twiliofaces.chapter1.recipe6.util.ExtensionUtils;
+import org.twiliofaces.recipes.utils.StringUtils;
 
 @ApplicationScoped
 @Named
@@ -60,13 +60,13 @@ public class CompanyDirectoryMapController
          directory = new HashMap<String, CompanyNumber>();
          CompanyNumber first = new CompanyNumber("0", "415-555-1111", "John", "Smith");
          directory.put(first.getExtension(), first);
-         getIndexes().put(ExtensionUtils.stringToDigits(first.getPhone()), first.getPhone());
+         getIndexes().put(StringUtils.stringToDigits(first.getPhone()), first.getPhone());
          CompanyNumber second = new CompanyNumber("1234", "415-555-2222", "Joe", "Doe");
          directory.put(second.getExtension(), second);
-         getIndexes().put(ExtensionUtils.stringToDigits(second.getPhone()), second.getPhone());
+         getIndexes().put(StringUtils.stringToDigits(second.getPhone()), second.getPhone());
          CompanyNumber thirt = new CompanyNumber("4321", "415-555-3333", "Eric", "Anderson");
          directory.put(thirt.getExtension(), thirt);
-         getIndexes().put(ExtensionUtils.stringToDigits(thirt.getPhone()), thirt.getPhone());
+         getIndexes().put(StringUtils.stringToDigits(thirt.getPhone()), thirt.getPhone());
       }
       return directory;
    }

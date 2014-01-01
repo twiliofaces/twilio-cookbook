@@ -14,7 +14,7 @@
 
 	<artifactId>recipe1</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>Twilio Cookbook Recipes using java EE (twiliofaces): chapter1 recipe1</name>
 	<description>Twilio Cookbook Recipes using java EE (twiliofaces): chapter1 recipe1</description>
 	<url>http://www.twiliofaces.org/p/recipes</url>
@@ -33,5 +33,12 @@
 			<email>fiorenzino@gmail.com</email>
 		</developer>
 	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.twiliofaces.recipes</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+	</dependencies>
 </project>
 

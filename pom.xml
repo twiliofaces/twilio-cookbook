@@ -128,9 +128,16 @@
 			<module>chapter5</module> <module>chapter6</module> <module>chapter7</module> 
 			<module>chapter8</module> <module>chapter9</module> <module>chapter10</module> -->
 		<module>all-recipes</module>
+		<module>common</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>recipe1</artifactId>

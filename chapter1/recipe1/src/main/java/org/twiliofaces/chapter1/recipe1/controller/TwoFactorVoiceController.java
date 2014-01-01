@@ -14,9 +14,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.twiliofaces.chapter1.recipe1.controller.util.Utils;
 import org.twiliofaces.chapter1.recipe1.service.AsyncCallService;
 import org.twiliofaces.chapter1.recipe1.service.NumbersRepository;
+import org.twiliofaces.recipes.utils.MessageUtils;
+import org.twiliofaces.recipes.utils.StringUtils;
 
 @Named
 @SessionScoped
@@ -46,8 +47,8 @@ public class TwoFactorVoiceController implements Serializable
       if (username != null && !username.isEmpty() && number != null
                && !number.isEmpty())
       {
-         username = Utils.cleanString(username);
-         number = Utils.cleanNumber(number);
+         username = StringUtils.cleanString(username);
+         number = StringUtils.cleanNumber(number);
          String password = "" + (new Random()).nextInt(900000000)
                   + 1000000000;
          numbersRepository.putUsernameNumberPassword(username, number,
@@ -55,12 +56,12 @@ public class TwoFactorVoiceController implements Serializable
          logger.info("new username-number-password created: " + username
                   + " " + number + " " + password);
          asyncCallService.sendPassword(number);
-         Utils.addFacesMessage("a new password is generated",
+         MessageUtils.addFacesMessage("a new password is generated",
                   "you will receive a call with your temporany password");
       }
       else
       {
-         Utils.addFacesMessage("some parameter is null or empty",
+         MessageUtils.addFacesMessage("some parameter is null or empty",
                   "please retry");
       }
    }
@@ -74,17 +75,17 @@ public class TwoFactorVoiceController implements Serializable
          {
             String password = numbersRepository.getByUsername(username);
             if (password.equals(verifyPassword))
-               Utils.addFacesMessage("verification of passsword",
+               MessageUtils.addFacesMessage("verification of passsword",
                         "the password is correct");
             else
-               Utils.addFacesMessage("verification of passsword",
+               MessageUtils.addFacesMessage("verification of passsword",
                         "the password is not correct");
          }
 
       }
       else
       {
-         Utils.addFacesMessage("verification of passsword",
+         MessageUtils.addFacesMessage("verification of passsword",
                   "some parameter is null or empty");
 
       }

@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.twiliofaces.cdi.doers.Caller;
-import org.twiliofaces.chapter1.recipe4.controller.util.Utils;
+import org.twiliofaces.recipes.utils.MessageUtils;
 
 import com.twilio.sdk.TwilioRestException;
 
@@ -63,20 +63,20 @@ public class MakeCallController4 implements Serializable
          {
             String sid = caller.to(called).url(URL + "?+number=" + called).call();
             logger.info("call sid:" + sid);
-            Utils.addFacesMessage("Ok..", "Connecting... " + sid);
+            MessageUtils.addFacesMessage("Ok..", "Connecting... " + sid);
             return null;
          }
          catch (TwilioRestException e)
          {
             e.printStackTrace();
-            Utils.addFacesMessage("Error!!", e.getMessage());
+            MessageUtils.addFacesMessage("Error!!", e.getMessage());
             return null;
          }
 
       }
       else
       {
-         Utils.addFacesMessage("Attention", "Must specify your phone number");
+         MessageUtils.addFacesMessage("Attention", "Must specify your phone number");
          return null;
       }
    }

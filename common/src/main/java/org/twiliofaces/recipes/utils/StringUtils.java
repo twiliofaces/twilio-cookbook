@@ -4,10 +4,27 @@
  * Licensed under the Eclipse Public License version 1.0, available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.twiliofaces.chapter1.recipe6.util;
+package org.twiliofaces.recipes.utils;
 
-public class ExtensionUtils
+public class StringUtils
 {
+
+   public static String cleanString(String key)
+   {
+      String retVal = (key != null && !key.isEmpty()) ? key : "";
+
+      return retVal.replaceAll("/[^A-Za-z0-9]/", "");
+
+   }
+
+   public static String cleanNumber(String key)
+   {
+      String retVal = (key != null && !key.isEmpty()) ? key : "";
+
+      return retVal.replaceAll("/[^0-9]/", "");
+
+   }
+
    public static String stringToDigits(String str)
    {
       str = str.toLowerCase();

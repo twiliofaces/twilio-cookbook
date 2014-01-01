@@ -15,7 +15,8 @@ import javax.inject.Named;
 
 import org.twiliofaces.cdi.doers.Caller;
 import org.twiliofaces.cdi.doers.RecordingReporter;
-import org.twiliofaces.chapter1.recipe5.controller.util.Utils;
+import org.twiliofaces.recipes.service.MailService;
+import org.twiliofaces.recipes.utils.MessageUtils;
 
 import com.twilio.sdk.TwilioRestException;
 
@@ -23,6 +24,9 @@ import com.twilio.sdk.TwilioRestException;
 @SessionScoped
 public class MakeCallController5 implements Serializable
 {
+   @Inject
+   MailService mailService;
+
    private static final long serialVersionUID = 1L;
    private String toNumber = "12345678"; // YOUR PHONE NUMBER TO CALL
    private String toEmail = "mail@mail.com"; // YOUR EMAIL TO EMAIL YOU THE RECORDING
@@ -51,22 +55,29 @@ public class MakeCallController5 implements Serializable
                      // + "&record=true"
                      ).param("record", "true").call();
             logger.info("call sid:" + sid);
-
-            Utils.sendEmail(RECORDING_URL, sid, sid, Utils.getServerName());
-            Utils.addFacesMessage("Ok..", "Connecting... " + sid);
+            String subject = "New phone recording from " + called;
+            String serverName = null;
+            StringBuffer content = new StringBuffer("You have a new phone recording from ").append(called)
+                     .append(":\n\n")
+                     .append(serverName + RECORDING_URL + "?sid=" + sid);
+            String to = "";
+            String from = "";
+            mailService.send(from, to, subject, content.toString());
+            // (RECORDING_URL, sid, sid, Utils.getServerName());
+            MessageUtils.addFacesMessage("Ok..", "Connecting... " + sid);
             return null;
          }
          catch (TwilioRestException e)
          {
             e.printStackTrace();
-            Utils.addFacesMessage("Error!!", e.getMessage());
+            MessageUtils.addFacesMessage("Error!!", e.getMessage());
             return null;
          }
 
       }
       else
       {
-         Utils.addFacesMessage("Attention", "Must specify your phone number");
+         MessageUtils.addFacesMessage("Attention", "Must specify your phone number");
          return null;
       }
    }

@@ -1,16 +1,10 @@
-/*
- * Copyright 2013 twiliofaces.org.
- *
- * Licensed under the Eclipse Public License version 1.0, available at
- * http://www.eclipse.org/legal/epl-v10.html
- */
-package org.twiliofaces.chapter1.recipe4.controller.util;
+package org.twiliofaces.recipes.utils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-public class Utils
+public class MessageUtils
 {
 
    public static void addFacesMessage(String summary, String message)

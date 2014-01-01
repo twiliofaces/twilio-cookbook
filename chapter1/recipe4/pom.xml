@@ -34,4 +34,10 @@
 			<email>fiorenzino@gmail.com</email>
 		</developer>
 	</developers>
+	<dependencies>
+		<dependency>
+			<groupId>org.twiliofaces.recipes</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+	</dependencies>
 </project>

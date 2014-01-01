@@ -1,0 +1,35 @@
+http://www.mastertheboss.com/jboss-configuration/jboss-mail-service-configuration
+
+http://hpehl.info/send-mails-from-openshift.html
+
+<subsystem xmlns="urn:jboss:domain:mail:1.0">
+    ...
+    <mail-session jndi-name="java:/mail/Gmail" from="your.name@gmail.com">
+        <smtp-server ssl="true" outbound-socket-binding-ref="gmail-smtp">
+            <login name="your.name@gmail.com" password="..."/>
+        </smtp-server>
+    </mail-session>
+</subsystem>
+
+
+
+<socket-binding-group name="standard-sockets" default-interface="public" port-offset="0">
+    <socket-binding name="http" port="8080"/>
+    <socket-binding name="jacorb" interface="unsecure" port="3528"/>
+    <socket-binding name="jacorb-ssl" interface="unsecure" port="3529"/>
+    <socket-binding name="jgroups-tcp" port="7600"/>
+    <socket-binding name="management-native" interface="management" port="9999"/>
+    <socket-binding name="management-http" interface="management" port="9990"/>
+    <socket-binding name="messaging" port="5445"/>
+    <socket-binding name="messaging-throughput" port="5455"/>
+    <socket-binding name="osgi-http" interface="management" port="8090"/>
+    <socket-binding name="remoting" port="4447"/>
+    <socket-binding name="txn-recovery-environment" port="4712"/>
+    <socket-binding name="txn-status-manager" port="4713"/>
+    <outbound-socket-binding name="mail-smtp">
+        <remote-destination host="localhost" port="25"/>
+    </outbound-socket-binding>
+    <outbound-socket-binding name="gmail-smtp" source-port="0" fixed-source-port="false">
+        <remote-destination host="smtp.gmail.com" port="465"/>
+    </outbound-socket-binding>
+</socket-binding-group>

@@ -22,7 +22,6 @@ import com.twilio.sdk.TwilioRestException;
 public class AsyncSendService
 {
 
-   static String ENDPOINT = "";
    @Inject
    Sender sender;
 
